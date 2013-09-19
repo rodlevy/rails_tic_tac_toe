@@ -1,0 +1,9 @@
+
+ <div>
+	<title></title>
+
+	<%= form_tag("/board", method: "post") do %>
+	Size of Board:
+	<%= text_field_tag(:board_size) %>
+	<% end %>
+</div>

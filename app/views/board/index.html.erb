@@ -1,0 +1,11 @@
+<div class='title'> UNBEATABLE TIC TAC TOE!</div>
+<div>
+	<li><%= @moves%></li>
+
+	<%= form_tag("/", method: "post") do %>
+	Size of Board:
+	<%= text_field_tag(:board_size) %>
+	<% end %>
+</div>
+
+
