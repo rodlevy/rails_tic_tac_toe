@@ -3,48 +3,19 @@ require 'ultimate_tic_tac_toe'
 class BoardController < ApplicationController
 
 	def index
-		p "******", session[:size]
+		puts "<<<<<<<<<  ", @board, "  >>>>>>>>>>>>>"
 		@moves = session[:size]
 	end
 
-	def grid_size
-		size = opening_prompt
-
-		if size == "9" || size == "16" || size == '25'
-			return size.to_i
-		else
-			puts "Please enter 9, 16 or 25"
-			grid_size
-		end
-	end
-
 	def create
-		# fun_game = Game.new(Interface.new, Computer.new)
 		size = session[:size]
 		p session[:size]
 		redirect_to '/board'
 	end
 end
 
+
 class Interface
-
-	def opening_prompt
-		puts "What size board do you want to play (9, 16, 25)"
-		size = user_input
-		size
-	end
-
-	def grid_size
-		size = opening_prompt
-
-		if size == "9" || size == "16" || size == '25'
-			return size.to_i
-		else
-			puts "Please enter 9, 16 or 25"
-			grid_size
-		end
-
-	end
 
 	def axis_length(size)
 		Math.sqrt(size).to_i

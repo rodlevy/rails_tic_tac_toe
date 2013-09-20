@@ -9,6 +9,8 @@ RailsTicTacToe::Application.routes.draw do
 
   resources :board
 
+  resources :interface
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
