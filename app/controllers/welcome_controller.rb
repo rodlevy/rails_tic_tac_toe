@@ -31,6 +31,7 @@ class WelcomeController < ApplicationController
 
 	def create_game
 		@fun_game = Game.new(InterfaceController.new, Computer.new)
+		session[:game] = @fun_game
 		puts 'made it to create_game', session[:size]
 		# @board = Board.new(session[:size])
 		puts "made a board: ", @board

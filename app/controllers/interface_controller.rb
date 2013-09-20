@@ -4,52 +4,71 @@ require 'trash'
 class InterfaceController < ApplicationController
 
 	def index
-		# puts "<<<<<<<<<  ", @board, "  >>>>>>>>>>>>>"
-		# @moves = session[:size]
+		@message = ''
 	end
+
+	def update
+		puts params[:player_move]
+		create_game
+	end
+
 
 	def create
-		session[:move] = params[:move].to_i
-		p "  >>>>>>>>>>>>>", session[:move], "  >>>>>>>>>>>>>"
-		redirect_to '/interface'
+		size = params[:board_size].to_i
+		if size != 0
+			check_grid_size(size)
+		else
+			@player_moves = params[:player_moves]
+			@player_moves << params[:player_move]
+			# print @player_moves[]
+			@size = params[:size]
+			@fun_game = params[:fun_game]
+			# @fun_game.play
+			render 'new'
+		end
 	end
 
+	def prompt
+		4
+	end
+
+
+	def check_grid_size(size)
+		if size == 9 || size == 16 || size == 25
+			@size = size
+			create_game
+			render 'new'
+		else
+			@message = "Please Enter 9, 16 or 25"
+			@size = size
+			render 'index'
+		end
+	end
+
+	def create_game
+		@fun_game = Game.new(InterfaceController.new, Computer.new)
+	end
+
+	# def play_game
+	# 	@fun_game.play
+	# end
+
 	def opening_prompt
-		# puts "What size board do you want to play (9, 16, 25)"
-		# session[:size]
 	end
 
 	def grid_size
-		# puts "  >>>>>>>>>>>>"
-		# # size = session[:size]
-		# size = @board.grid.length
-		# puts size
-		# puts "<<<<<<<<<<"
-		# size
+		# puts params[:size]
+		# params[:size]
 		9
-
 	end
 
 	def axis_length(size)
 		Math.sqrt(size).to_i
 	end
 
-	# def insert_spaces(position, size, output, grid)
-	#    if position % axis_length(size) == (axis_length(size) - 1)
- #      	output << "\n" unless position == (size - 1)
- #      	else
- #      		if position < 10 || !grid[position].nil?
- #      			output << "   "
- #      		else
- #      			output << "  "
- #      	end
- #      end
-
-	# end
-
 	def pretty_print_board(grid)
-		puts ">>>>>>>>>>>>>", @board
-		redirect_to '/interface'
+		# puts ">>>>>>>>>>>>>", @board
+		# render :index
 	end
 
 	def prompt
@@ -57,11 +76,12 @@ class InterfaceController < ApplicationController
 	end
 
 	def user_input
-		session[:move]
+		puts "We're at the user_input method"
+		4
 	end
 
 	def denied
-		puts "Already occupied, try again"
+		puts "Already ruined try again"
 	end
 
 	def cats_game
