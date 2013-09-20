@@ -7,12 +7,6 @@ class InterfaceController < ApplicationController
 		@message = ''
 	end
 
-	def update
-		puts params[:player_move]
-		create_game
-	end
-
-
 	def create
 		size = params[:board_size].to_i
 		if size != 0
@@ -20,23 +14,27 @@ class InterfaceController < ApplicationController
 		else
 			@player_moves = params[:player_moves]
 			@player_moves << params[:player_move]
-			# print @player_moves[]
 			@size = params[:size]
-			@fun_game = params[:fun_game]
 			# @fun_game.play
+			game = Game.new(self, Computer.new)
+			game.play
 			render 'new'
 		end
 	end
 
-	def prompt
-		4
+	def pretty_print_board(grid)
+		print grid
+		@grid = grid
+		# render 'new'
 	end
 
+	def prompt
+	end
 
 	def check_grid_size(size)
 		if size == 9 || size == 16 || size == 25
 			@size = size
-			create_game
+			# create_game
 			render 'new'
 		else
 			@message = "Please Enter 9, 16 or 25"
@@ -45,43 +43,28 @@ class InterfaceController < ApplicationController
 		end
 	end
 
-	def create_game
-		@fun_game = Game.new(InterfaceController.new, Computer.new)
-	end
-
-	# def play_game
-	# 	@fun_game.play
+	# def create_game
+	# 	@fun_game = Game.new(self, Computer.new)
 	# end
 
 	def opening_prompt
 	end
 
 	def grid_size
-		# puts params[:size]
-		# params[:size]
-		9
+		params[:size].to_i
 	end
 
 	def axis_length(size)
 		Math.sqrt(size).to_i
 	end
 
-	def pretty_print_board(grid)
-		# puts ">>>>>>>>>>>>>", @board
-		# render :index
-	end
-
-	def prompt
-		# puts "Where do you want to place your X?"
-	end
 
 	def user_input
-		puts "We're at the user_input method"
-		4
+		params[:player_move]
 	end
 
 	def denied
-		puts "Already ruined try again"
+		# puts "Already ruined try again"
 	end
 
 	def cats_game
