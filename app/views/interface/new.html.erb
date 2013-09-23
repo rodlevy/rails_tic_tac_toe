@@ -1,60 +1,29 @@
 <div class='title'> UNBEATABLE TIC TAC TOE!</div>
 <div>
-	<li><%= @player_move%></li>
-
-	<li><%= @player_moves%></li>
-	<li>Your Board is <%= @size%> Long</li>
-	<li> Your actual game is: <%=@fun_game%> </li>
-	<li> Your Grid is: <%=@grid%> </li>
+	<div><%= @winner_message%></div>
 
 	<%= form_tag("/interface", method: "post") do %>
 	<div>Where do you want to put your X?</div>
 	<%= hidden_field_tag(:size, @size) %>
-	<%= hidden_field_tag(:player_moves, @player_moves) %>
-	<%= hidden_field_tag(:fun_game, @fun_game) %>
-	<%= text_field_tag(:player_move) %>
+	mapped board_grid
+	<%@length = @board_grid.length%>
+	<%@axis_length = Math.sqrt(@length).to_i%>
+	<%@board_view = (0..@length-1).to_a%>
+	<%@board_view.each_slice(@axis_length) do |slice| %>
+	<%=slice%>
+	<%end%>
+	<%= hidden_field_tag(:board_grid, @board_grid) %>
+	<%= text_field_tag(:human_move) %>
 	<% end %>
+
+
 	<div class='board'>
-		<%if @player_moves %>
-	<li class='square'><%if @player_moves.split("").include?("0")%>
-		<%= "X"%>
-		<% else %>
-		<%= "0"%>
-		<%end%></li>
-		<li class='square'><%if @player_moves.split("").include?("1")%>
-		<%= "X"%>
-		<% else %>
-		<%= "1"%>
-		<%end%></li><li class='square'><%if @player_moves.split("").include?("2")%>
-		<%= "X"%>
-		<% else %>
-		<%= "2"%>
-		<%end%></li><li class='square'><%if @player_moves.split("").include?("3")%>
-		<%= "X"%>
-		<% else %>
-		<%= "3"%>
-		<%end%></li><li class='square'><%if @player_moves.split("").include?("4")%>
-		<%= "X"%>
-		<% else %>
-		<%= "4"%>
-		<%end%></li><li class='square'><%if @player_moves.split("").include?("5")%>
-		<%= "X"%>
-		<% else %>
-		<%= "5"%>
-		<%end%></li><li class='square'><%if @player_moves.split("").include?("6")%>
-		<%= "X"%>
-		<% else %>
-		<%= "6"%>
-		<%end%></li><li class='square'><%if @player_moves.split("").include?("7")%>
-		<%= "X"%>
-		<% else %>
-		<%= "7"%>
-		<%end%></li><li class='square'><%if @player_moves.split("").include?("8")%>
-		<%= "X"%>
-		<% else %>
-		<%= "8"%>
-		<%end%></li>
-		<%end%>
-	</li>
+
+		<li class='square'>
+			<% @board_grid.split("").each do |elem|%>
+			<ul class="cell"><%= elem %></ul>
+			<% end %>
+		</li>
+	</div>
 
 </div>
