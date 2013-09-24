@@ -10,24 +10,39 @@ class InterfaceController < ApplicationController
 
 	def create
 		size = params[:board_size].to_i
+
 		if size != 0
 			check_grid_size(size)
 		else
 			get_params
-			@winner_message = 'none'
-			@computer = Computer.new
-			@board = Board.new(@size)
-
-			@board_grid[@human_move] = HUMAN
-			set_board_grid
-			if @board.winner?("X") == true
-				@winner_message = "HUMAN WINS, IMPOSSIBLE"
+			if @board_grid[@human_move] == "-"
+				play_game
+				render 'new'
 			else
-				@computer.computer_move(@board)
-				check_computer_victory
-			convert_board_to_string
+				render 'new'
 			end
-			render 'new'
+		end
+	end
+
+	def get_params
+		@human_move = params[:human_move].to_i
+		@size = params[:board_grid].length
+		@board_grid = params[:board_grid]
+		@winner_message = 'none'
+	end
+
+	def play_game
+		@computer = Computer.new
+		@board = Board.new(@size)
+
+		@board_grid[@human_move] = HUMAN
+		set_board_grid
+		if @board.winner?("X") == true
+			@winner_message = "HUMAN WINS, IMPOSSIBLE"
+		else
+			@computer.computer_move(@board)
+			check_computer_victory
+		convert_board_to_string
 		end
 	end
 
@@ -49,11 +64,6 @@ class InterfaceController < ApplicationController
 		end
 	end
 
-	def get_params
-		@human_move = params[:human_move].to_i
-		@size = params[:board_grid].length
-		@board_grid = params[:board_grid]
-	end
 
 	def check_grid_size(size)
 		if size == 9 || size == 16 || size == 25
