@@ -2,18 +2,45 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.board {
-
-	list-style-type: none;
+.title{
+	font-family: "Lucida Grande", Verdana, Geneva, sans-serif;
+	background: purple;
+	height: 50px;
+	font-size: 35px;
+	color: white;
+	padding-left: 50px;
 }
 
-.cell {
+.three {
+	background: orange;
+	padding: none;
+	margin: 0;
+	font-size: 75px;
+	color: black;
+	width: 25%;
+	float: left;
+	list-style-type: none;
+
+}
+
+.four {
 	background: orange;
 	padding: none;
 	margin: 0;
 	font-size: 75px;
 	color: black;
 	width: 15%;
+	float: left;
+	list-style-type: none;
+
+}
+.five {
+	background: orange;
+	padding: none;
+	margin: 0;
+	font-size: 75px;
+	color: black;
+	width:12%;
 	float: left;
 	list-style-type: none;
 

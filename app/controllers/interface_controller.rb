@@ -14,7 +14,7 @@ class InterfaceController < ApplicationController
 			check_grid_size(size)
 		else
 			get_params
-
+			@winner_message = 'none'
 			@computer = Computer.new
 			@board = Board.new(@size)
 
@@ -61,6 +61,7 @@ class InterfaceController < ApplicationController
 			@board = Board.new(@size)
 			convert_board_to_string
 			@computer_moves = ''
+			@winner_message = 'none'
 			render 'new'
 		else
 			@message = "Please Enter 9, 16 or 25"

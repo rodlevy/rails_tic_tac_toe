@@ -1,29 +1,39 @@
-<div class='title'> UNBEATABLE TIC TAC TOE!</div>
+<div class='title'> NCSA: UNBEATABLE TIC TAC TOE!</div>
 <div>
-	<div><%= @winner_message%></div>
 
-	<%= form_tag("/interface", method: "post") do %>
-	<div>Where do you want to put your X?</div>
-	<%= hidden_field_tag(:size, @size) %>
-	mapped board_grid
-	<%@length = @board_grid.length%>
-	<%@axis_length = Math.sqrt(@length).to_i%>
-	<%@board_view = (0..@length-1).to_a%>
-	<%@board_view.each_slice(@axis_length) do |slice| %>
-	<%=slice%>
-	<%end%>
-	<%= hidden_field_tag(:board_grid, @board_grid) %>
-	<%= text_field_tag(:human_move) %>
+	<% if @winner_message == 'none'%>
+
+		<%= form_tag("/interface", method: "post") do %>
+		<div>Where do you want to put your X?</div>
+		<%= text_field_tag(:human_move) %>
+		<%= hidden_field_tag(:size, @size) %>
+		<div> Mapped board_grid </div>
+		<%@length = @board_grid.length%>
+		<%@axis_length = Math.sqrt(@length).to_i%>
+		<%@board_view = (0..@length-1).to_a%>
+		<%@board_view.each_slice(@axis_length) do |slice| %>
+		<%=slice%><br>
+		<%end%>
+		<%= hidden_field_tag(:board_grid, @board_grid) %>
+		<% end %>
+
+	<% else %>
+		<div class='message'><%= @winner_message%></div>
+		<%= link_to "Play Another Game", @interface_path %>
 	<% end %>
 
+		<%if @length == 9 %>
+		<%= render :partial => "interface/threeXthree", :locals => {:board_grid => @board_grid} %>
+		<% end %>
 
-	<div class='board'>
+		<%if @length == 16 %>
+		<%= render :partial => "interface/fourXfour", :locals => {:board_grid => @board_grid} %>
+		<% end %>
 
-		<li class='square'>
-			<% @board_grid.split("").each do |elem|%>
-			<ul class="cell"><%= elem %></ul>
-			<% end %>
-		</li>
-	</div>
+		<%if @length == 25 %>
+		<%= render :partial => "interface/fiveXfive", :locals => {:board_grid => @board_grid} %>
+		<% end %>
+
+
 
 </div>

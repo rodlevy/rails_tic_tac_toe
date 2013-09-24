@@ -1,9 +1,6 @@
  <div>
-	<title></title>
-	<%=@message%>
-
 	<%= form_tag("/interface", method: "post") do %>
-	What is the Size of Your Board:
+	<div class='intro'>What is the Size of Your Board:</div>
 	<%= text_field_tag(:board_size) %>
 	<% end %>
 
