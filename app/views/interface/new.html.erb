@@ -4,8 +4,9 @@
 	<% if @winner_message == 'none'%>
 
 		<%= form_tag("/interface", method: "post") do %>
-		<h2>Where do you want to put your X?</h2>
+		<%= label_tag(:human_move, "Where do you want to put Your X")%>
 		<%= text_field_tag(:human_move) %>
+		<%= submit_tag("Hit Me!")%>
 		<%=@warning%>
 		<%= hidden_field_tag(:size, @size) %>
 		<h3> Here is Your Board Grid </h3>
