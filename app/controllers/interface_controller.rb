@@ -1,5 +1,4 @@
 require 'ultimate_tic_tac_toe'
-require 'trash'
 HUMAN = "X"
 
 class InterfaceController < ApplicationController
@@ -15,13 +14,19 @@ class InterfaceController < ApplicationController
 			check_grid_size(size)
 		else
 			get_params
-			if @board_grid[@human_move] == "-"
+			if board_spot_empty?
+				@warning = ''
 				play_game
 				render 'new'
 			else
+				@warning = "Please enter an unoccupied spot"
 				render 'new'
 			end
 		end
+	end
+
+	def board_spot_empty?
+		@board_grid[@human_move] == "-"
 	end
 
 	def get_params
@@ -42,7 +47,7 @@ class InterfaceController < ApplicationController
 		else
 			@computer.computer_move(@board)
 			check_computer_victory
-		convert_board_to_string
+			convert_board_to_string
 		end
 	end
 

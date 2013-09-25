@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'ultimate_tic_tac_toe', :path => '/Users/rlevy/code/learning/ultimate_tic_tac_toe/'
 
+gem 'rspec-rails', '~> 2.0'
+gem 'rspec'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

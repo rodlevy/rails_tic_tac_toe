@@ -6,6 +6,7 @@
 		<%= form_tag("/interface", method: "post") do %>
 		<h2>Where do you want to put your X?</h2>
 		<%= text_field_tag(:human_move) %>
+		<%=@warning%>
 		<%= hidden_field_tag(:size, @size) %>
 		<h3> Here is Your Board Grid </h3>
 		<%@length = @board_grid.length%>
@@ -14,6 +15,7 @@
 		<%@board_view.each_slice(@axis_length) do |slice| %>
 		<%=slice%><br>
 		<%end%>
+		<br>
 		<%= hidden_field_tag(:board_grid, @board_grid) %>
 		<% end %>
 
