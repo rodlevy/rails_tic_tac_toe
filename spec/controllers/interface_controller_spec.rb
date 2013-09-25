@@ -20,7 +20,7 @@ describe InterfaceController do
 
 	describe "a Board's size" do
   	subject { new_board_9.grid }
-  		its(:size) { should eq(9) } # intentionally fail
+  		its(:size) { should eq(9) }
 	end
 
 	it 'should set the board into array so computer can check it ' do
