@@ -29,14 +29,18 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'ultimate_tic_tac_toe', :path => '/Users/rlevy/code/learning/ultimate_tic_tac_toe/'
 
-gem 'rspec-rails', '~> 2.0'
-gem 'rspec'
-
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
 
+gem 'high_voltage'
+
+group :development, :test do
+  gem 'rspec-rails', '~> 2.12'
+  gem 'rspec'
+  gem 'capybara'
+end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

@@ -1,10 +1,10 @@
 
  <div>
-	<title></title>
+	<title>Size of Board</title>
 	<%=@message%>
 
 	<%= form_tag("/", method: "post") do %>
-	Size of Board:
+	<div> Size of Board: </div>
 	<%= text_field_tag(:board_size) %>
 	<% end %>
 </div>
