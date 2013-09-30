@@ -27,7 +27,7 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-gem 'ultimate_tic_tac_toe', :path => '/Users/rlevy/code/learning/ultimate_tic_tac_toe/'
+gem 'ultimate_tic_tac_toe'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
