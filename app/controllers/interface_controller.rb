@@ -1,14 +1,17 @@
 require 'ultimate_tic_tac_toe'
 HUMAN = "X"
+require './lib/TTT/game_player'
 
 class InterfaceController < ApplicationController
 
 	def index
-		@message = ''
 	end
 
 	def create
 		size = params[:board_size].to_i
+
+		g = GamePlayer.new
+		g.test
 
 		if size != 0
 			check_grid_size(size)
@@ -63,7 +66,6 @@ class InterfaceController < ApplicationController
 	def check_computer_victory
 		if @board.winner?("O") == true
 			@winner_message = "COMPUTER WINS, of course"
-			# render 'board/index' and_return
 		elsif @board.tie?
 			@winner_message = "TIE Game"
 		end
