@@ -10,8 +10,8 @@ class InterfaceController < ApplicationController
 	def create
 		size = params[:board_size].to_i
 
-		g = GamePlayer.new
-		g.test
+		game = GamePlayer.new(params)
+		game.play
 
 		if size != 0
 			check_grid_size(size)
