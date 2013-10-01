@@ -21,12 +21,6 @@ describe GamePlayer do
 		end
 	end
 
-	# describe '#new_computer_and_board' do
-	# 	it 'instantiates and new computer and board' do
-	# 		expect(gameplayer).to receive(:new_computer_and_board).and_return(Board.new(9))
-	# 	end
-	# end
-
 	describe '#set_board_grid' do
 		it 'converts the board from the view into an array' do
 			gameplayer.new_computer_and_board
@@ -39,6 +33,29 @@ describe GamePlayer do
 			gameplayer.new_computer_and_board
 			gameplayer.board.grid = [nil, "X", nil, nil, nil, nil, nil, nil, nil]
 			expect(gameplayer.convert_board_to_string).to eq('-X-------')
+		end
+	end
+
+	describe '#board_spot_empty' do
+		it 'checks to see if a spot on the board is empty' do
+			gameplayer.new_computer_and_board
+			expect(gameplayer.board_spot_empty?).to eq(false)
+		end
+	end
+
+	describe '#check_computer_victory' do
+		it 'checks to see if the computer has won' do
+			gameplayer.new_computer_and_board
+			gameplayer.board.grid = ["O", "O", "O", nil, nil, nil, nil, nil, nil]
+			expect(gameplayer.check_computer_victory).to eq("COMPUTER WINS, of course")
+		end
+	end
+
+	describe '#check_computer_victory' do
+		it 'checks to see if the game is tied' do
+			gameplayer.new_computer_and_board
+			gameplayer.board.grid = ["O", "O", "X", "X", "X", "O", "O", "X", "X"]
+			expect(gameplayer.check_computer_victory).to eq("TIE Game")
 		end
 	end
 

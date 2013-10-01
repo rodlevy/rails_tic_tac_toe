@@ -8,84 +8,38 @@ class InterfaceController < ApplicationController
 	end
 
 	def create
+		@gameplayer = GamePlayer.new(params)
 		size = params[:board_size].to_i
 
-		game = GamePlayer.new(params)
-		game.play
+		ok_game_message = @gameplayer.check_start_of_game(size)
 
-		if size != 0
-			check_grid_size(size)
-		else
-			get_params
-			if board_spot_empty?
-				@warning = ''
-				play_game
-				render 'new'
-			else
-				@warning = "Please enter an unoccupied spot"
-				render 'new'
-			end
-		end
-	end
-
-	def board_spot_empty?
-		@board_grid[@human_move] == "-"
-	end
-
-	def get_params
-		@human_move = params[:human_move].to_i
-		@size = params[:board_grid].length
-		@board_grid = params[:board_grid]
-		@winner_message = 'none'
-	end
-
-	def play_game
-		@computer = Computer.new
-		@board = Board.new(@size)
-
-		@board_grid[@human_move] = HUMAN
-		set_board_grid
-		if @board.winner?("X") == true
-			@winner_message = "HUMAN WINS, IMPOSSIBLE"
-		else
-			@computer.computer_move(@board)
-			check_computer_victory
-			convert_board_to_string
-		end
-	end
-
-	def convert_board_to_string
-		temp_board = @board.grid
-		@board_grid = temp_board.map{|elem| elem.nil? ? "-" : elem }.join
-	end
-
-	def set_board_grid
-		@board.grid = @board_grid.split("").map{|elem| elem.match("-") ? nil : elem}
-	end
-
-	def check_computer_victory
-		if @board.winner?("O") == true
-			@winner_message = "COMPUTER WINS, of course"
-		elsif @board.tie?
-			@winner_message = "TIE Game"
-		end
-	end
-
-
-	def check_grid_size(size)
-		if size == 9 || size == 16 || size == 25
-			@size = size
-			@board = Board.new(@size)
-			convert_board_to_string
-			@computer_moves = ''
-			@winner_message = 'none'
+		if ok_game_message == 'initializing'
+			@gameplayer.board = Board.new(size)
+			get_initial_parameters
 			render 'new'
-		else
-			@message = "Please Enter 9, 16 or 25"
-			@size = size
+		elsif ok_game_message == "Please Enter 9, 16 or 25"
+			@message = ok_game_message
 			render 'index'
+		elsif ok_game_message == 'playing'
+			in_game_params
+			render 'new'
+
 		end
 	end
+
+	def get_initial_parameters
+		@winner_message = 'none'
+		@board_grid = @gameplayer.convert_board_to_string
+		@computer_moves =''
+	end
+
+	def in_game_params
+		@game_values = @gameplayer.play
+		@board_grid = @game_values[:board_grid]
+		@winner_message = (@game_values[:winner_message] == 'none' ? 'none' : @game_values[:winner_message])
+		@warning = @game_values[:warning]
+	end
+
 
 end
 
