@@ -23,7 +23,6 @@ class InterfaceController < ApplicationController
 		elsif ok_game_message == 'playing'
 			in_game_params
 			render 'new'
-
 		end
 	end
 
