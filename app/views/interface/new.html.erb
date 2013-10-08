@@ -8,6 +8,7 @@
 		<%= text_field_tag(:human_move) %>
 		<%= submit_tag("Hit Me!")%>
 		<%=@warning%>
+
 		<%= hidden_field_tag(:size, @size) %>
 		<h3> Here is Your Board Grid </h3>
 		<%@length = @board_grid.length%>
