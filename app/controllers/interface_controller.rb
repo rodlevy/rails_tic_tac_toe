@@ -1,5 +1,4 @@
 require 'ultimate_tic_tac_toe'
-HUMAN = "X"
 require './lib/TTT/game_player'
 
 class InterfaceController < ApplicationController

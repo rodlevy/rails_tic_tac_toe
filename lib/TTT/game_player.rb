@@ -30,7 +30,7 @@ class GamePlayer
 	end
 
 	def check_computer_victory
-		if @board.winner?("O") == true
+		if @board.winner?(GlobalVars::COMPUTER) == true
 			@game_values[:winner_message] = "COMPUTER WINS, of course"
 		elsif @board.tie?
 			@game_values[:winner_message] = "TIE Game"
@@ -38,15 +38,13 @@ class GamePlayer
 	end
 
 	def start_game
-		# @size = size
 		@board = Board.new(@size)
 		convert_board_to_string
 		@computer_moves = ''
-		# @game_values[:winner_message] = 'none'
 	end
 
 	def check_grid_size(size)
-		if size == 9 || size == 16 || size == 25
+		if size == GlobalVars::ThreeXThree || size == GlobalVars::FourXFour || size == GlobalVars::FiveXFive
 			start_game
 			@ok_game_message = 'initializing'
 		else

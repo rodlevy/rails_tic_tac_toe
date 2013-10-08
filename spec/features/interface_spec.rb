@@ -42,5 +42,5 @@ feature 'Play tic-tac-toe' do
 	# 	fill_in 'human_move', with: '3'
 	# 	click_button 'Hit Me!' # wierd url_helper error here
 	# 	expect(page).to have_text('COMPUTER WINS')
-	end
+	# end
 end

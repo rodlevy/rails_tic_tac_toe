@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'interface_controller'
 
 describe InterfaceController do
 	let (:new_board_9){Board.new(9)}
